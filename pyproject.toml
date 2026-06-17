@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "great-tables>=0.17.0",
     "jupyter>=1.1.1",
+    "llama-cpp-python>=0.3.28",
     "matplotlib>=3.10.3",
     "pandas>=2.3.0",
     "pip>=26.1.2",
