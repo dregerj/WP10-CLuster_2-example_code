@@ -5,6 +5,7 @@ description = "A basic project template for Python"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "chromadb>=1.5.9",
     "great-tables>=0.17.0",
     "jupyter>=1.1.1",
     "llama-cpp-python>=0.3.28",
@@ -13,4 +14,5 @@ dependencies = [
     "pip>=26.1.2",
     "playwright>=1.60.0",
     "polars>=1.30.0",
+    "sentence-transformers>=5.6.0",
 ]
