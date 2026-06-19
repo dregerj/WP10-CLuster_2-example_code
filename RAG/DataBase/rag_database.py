@@ -1,4 +1,5 @@
 import os
+import s3fs
 import pandas as pd 
 import chromadb
 import hashlib
@@ -13,7 +14,28 @@ RERANKER_MODEL_NAME = "BAAI/bge-reranker-v2-gemma" # Model for reranked
 RETRIEVER_K = 10 # numbers return values for reranked
 RERANKER_K = 3 # Number of return final values
 
-reranker = CrossEncoder(RERANKER_MODEL_NAME, cache_folder ="../model/")
+#############################
+S3_ENDPOINT_URL = "https://" + os.environ["AWS_S3_ENDPOINT"]
+
+fs = s3fs.S3FileSystem(
+    client_kwargs={'endpoint_url': S3_ENDPOINT_URL}
+)
+
+BUCKET = "dregerj"
+FILE_KEY_S3 = "model/model-00001-of-00003.safetensors"
+
+FILE_PATH_S3 = "s3://dregerj/model/model-00001-of-00003.safetensors"
+# with fs.open(FILE_PATH_S3, mode="rb") as file_in:
+#    df_bpe = pd.read_csv(file_in, sep=";")
+
+
+# reranker = CrossEncoder(RERANKER_MODEL_NAME, cache_folder ="../model/")
+with fs.open(FILE_PATH_S3, mode="rb") as file_in:
+    print("TEST")
+    # content = file_in.read()  to dziala
+    # print(content)
+    reranker = CrossEncoder(FILE_PATH_S3)  # nie widzi pliku
+
 
 def build_rag_database(df: pd.DataFrame, database_path: str) ->Collection:
     

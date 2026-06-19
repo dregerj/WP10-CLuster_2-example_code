@@ -14,5 +14,6 @@ dependencies = [
     "pip>=26.1.2",
     "playwright>=1.60.0",
     "polars>=1.30.0",
+    "s3fs>=2026.6.0",
     "sentence-transformers>=5.6.0",
 ]
