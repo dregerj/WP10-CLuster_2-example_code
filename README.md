@@ -1,54 +1,69 @@
-# Using scraping and RAG for predict NACE category
+# Using Scraping and RAG to Predict NACE Categories
 ## Introduction
 
-For this work we used 3 data sources: 
-1. **Scrap Data** from our sources of URL`s 
-2. **Sythetic data** this source it was generated based on scrapeed data
-3. **Norwegian dataset** we translate to polisch some descriptions and use a summarize function to build shorter texts to LLM
+This project uses three data sources: 
+1. **Scrap Data** company descriptions collected from a list of URLs,
+2. **Sythetic data** generated based on the scraped data,
+3. **Norwegian dataset** company descriptions translated into Polish and summarized to create shorter texts suitable for LLM processing.
 
-For work we used:
+This project is built using:
 1. **Python** - versin 3.14.2
-2. **ChromaDB** - for embeding data base
-3. **Transformers** - library for use LLM models
-4. **Playwright** - library to scrap dynamic webpages 
+2. **ChromaDB** - vector database for storing embeddings
+3. **Transformers** - library for working with LLMs
+4. **Playwright** - library for scraping dynamic web pages
 
 ---
 
 # Step 1 – Scraping data
 
-## Main goal of scraping
-- Get comapanys description to predict NACE (in poland PKD) category 
+## Goal
+- Get comapanys description to predict NACE (in Poland PKD) category 
 ## Pipeline
 
-1. Set a URL's to scrap in file column WWW in source.csv on the Scrapping folder,
-2. Go to Scraping file and start scrap.py with command **py scrap.py**,
-3. The results will be saved in output.csv file. I output file it was 3 kolumns, WebPage, Desription, ScrapedWebPage ,
-4. If links to scrap doesnt have a protocol like HTTP or HTTPS, webscraper try find right protocol
+1. Add the URLs to be scraped to the WWW column in source.csv located in the Scraping folder.
+
+2. Navigate to the Scraping folder and run:
+
+    `py scrap.py`
+
+3. The results will be saved to output.csv. The output file contains three columns:
+-   WebPage
+- Description
+- ScrapedWebPage
+
+4. If a URL does not include a protocol (`http://` or `https://`), the scraper will attempt to detect and use the correct protocol automatically.
+
 ---
 
 # Step 2 Summarize the scrapped data
-## Main goal summarize
-- Get the shortest much more better textest for RAG and LLM teach. 
+## Goal
+- Generate short, high-quality descriptions that improve RAG retrieval and LLM performance.
 
 ## Pipeline
 
-1. Go to the Summary folder
-2. In conf.py file you have a definitions, settings, global varibles used in our program. Here you can change the LLM model, input files names, change the temperature parameter for less precision text. 
-3. Run file **index.py** in summary filder whith command: **py index.py** 
+1. Navigate to the Summary folder.
+2. Open `conf.py`, which contains the project's configuration, global variables, and settings. Here you can:
+- change the LLM model,
+- specify input file names,
+- adjust the temperature parameter.
+3. Run:
+`py index.py`
 
 ---
 
 # Step 3 - RAG 
-## Mail goal 
-- Predict a NACE based on 3 sources of data
+## Goal 
+- Predict the NACE category using all three data sources.
 
 ## Pipeline
 
-1. Go to RAG folder. 
-2. Run the index.py file whith command: **py index.py** 
-3. First step we prepare dataframe based on **rag_source.csv** file. 
-4. Next step it's a build database using 3 step. Parameters and global varibles are in **rag_databas.py** file.
-5. Last step it's return the 3 similar NACE codes to test file records and save the result to csv file
+1. Navigate to the RAG folder.
+
+2. Run:
+`py index.py`
+3. The program prepares a DataFrame based on `rag_source.csv`.
+4. It then builds the vector database using the three data sources. Configuration parameters and global variables are defined in `rag_database.py`.
+5. Finally, the application retrieves the three most similar NACE codes for each test record and saves the results to a CSV file.
 ---
 
 # Example code in Onyxia
