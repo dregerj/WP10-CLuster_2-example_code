@@ -27,7 +27,7 @@ This project is built using:
     `py scrap.py`
 
 3. The results will be saved to output.csv. The output file contains three columns:
--   WebPage
+- WebPage
 - Description
 - ScrapedWebPage
 
